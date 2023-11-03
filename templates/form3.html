@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <style>
+    h1{
+      text-align: left;
+      font-size: xx-large;
+      font-family: cursive;
+      padding-left: 20%
+    }
+    .no-arrows{
+      -moz-appearance: textfield;
+    }
+    .Form {
+      float: left;
+    }
+    .QRcode {
+      float: right;
+    }
+    div {
+      text-align: left;
+      border-radius: 5px;
+      background-color: #f2f2f2;
+      padding-left: 20%;
+      padding-block-end: 1%;
+      padding-right: 70%;
+    }
+    input[type=text] {
+      width: 105%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    select[id="error_correction"]{
+      width: 105%;
+      text-align: center;
+    }
+    input[type=number] {
+      width: 100%;
+      text-align: center;
+    }
+    input[type=color]{
+      width: 105%;
+    }
+    button[type=submit] {
+      width: 100%;
+      background-color: rgb(218, 205, 218);
+      color: rgb(0, 0, 0);
+      padding: 14px 20px;
+      margin: 40px 0;
+      border: none;
+      border-radius: 40px;
+      cursor: pointer;
+    }
+    input[type=submit]:hover {
+      background-color: rgb(235, 230, 235);
+    }
+  </style>
+  <head>
+      <title>QRnao</title>
+  </head>
+  <h1>
+    QRnao
+  </h1>
+  <div class="Form">
+    <form method="POST" action="/qrcode"><br>
+        <label for="text">Text:</label>
+        <input type="text" id="text" name="text" placeholder="Enter text or link."><br>
+        <label for="error_correction">Error Correction:</label>
+        <select id="error_correction" name="error_correction">
+            <option value="H">High</option>
+            <option value="Q">Quartile</option>
+            <option value="M">Medium</option>
+            <option value="L" selected>Low</option>
+        </select><br>
+        <label for="box_size">Box Size:</label>
+        <input type="number" id="box_size" name="box_size" value="10" class="no-arrows"><br>
+        <label for="border">Border:</label>
+        <input type="number" id="border" name="border" value="4" class="no-arrows"><br>
+        <label for="background_color">Background Color:</label>
+        <input type="color" id="background_color" name="background_color"><br>
+        <label for="foreground_color">QR code Color:</label>
+        <input type="color" id="foreground_color" name="foreground_color"><br>
+        <button type="submit">Generate</button>
+    </form>
+  </div>
+  <div class="QRcode">
+    <img src="QRcode.png" alt="QR code">
+  </div>
+</html>
