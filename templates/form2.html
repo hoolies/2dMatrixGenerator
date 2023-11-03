@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <style>
+        body {
+            background-color: rgb(36, 134, 173);
+            text-align: center;
+            font-size: 25px;
+        }
+    </style>
+    <head>
+        <title>QRnao</title>
+    </head>
+    <form method="POST" action="/qrcode"><br>
+        <label for="text">Text:</label>
+        <input type="text" id="text" name="text"><br>
+        <label for="version">Version:</label>
+            <select id="version" name="version">
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+            </select><br>
+        <label for="error_correction">Error Correction:</label>
+        <select id="error_correction" name="error_correction">
+            <option value="H" selected>High</option>
+            <option value="Q">Quartile</option>
+            <option value="M">Medium</option>
+            <option value="L">Low</option>
+        </select><br>
+        <label for="box_size">Box Size:</label>
+        <input type="number" id="box_size" name="box_size" value="10"><br>
+        <label for="border">Border:</label>
+        <input type="number" id="border" name="border" value="4"><br>
+        <label for="background_color">Background Color:</label>
+        <input type="color" id="background_color" name="background_color" value="#ffffff"><br>
+        <label for="foreground_color">QR code Color:</label>
+        <input type="color" id="foreground_color" name="foreground_color" value="#000000"><br>
+        <button type="submit">Generate</button>
+    </form>
+</html>
