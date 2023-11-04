@@ -1,28 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
   <style>
-    h1{
+    h1 {
       text-align: left;
       font-size: xx-large;
       font-family: cursive;
-      padding-left: 20%
+      padding-left: 2%
     }
-    .no-arrows{
-      -moz-appearance: textfield;
-    }
-    .Form {
-      float: left;
-    }
-    .QRcode {
-      float: right;
-    }
-    div {
+    .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin: 0 auto;
+      max-width: 1000px; /* Adjust this as needed */
+      padding: 20px;
       text-align: left;
       border-radius: 5px;
       background-color: #f2f2f2;
-      padding-left: 20%;
-      padding-block-end: 1%;
-      padding-right: 70%;
+    }
+    .no-arrows{
+      -moz-appearance: textfield;
     }
     input[type=text] {
       width: 105%;
@@ -56,37 +53,55 @@
     }
     input[type=submit]:hover {
       background-color: rgb(235, 230, 235);
-    }
+    } 
+
+  /* Style the Form and QRcode sections */
+  .Form {
+      width: 45%; /* Adjust the width as needed */
+      margin-right: 20px;
+  }
+
+  .QRcode {
+      width: 50%; /* Adjust the width as needed */
+  }
+
+  /* Add any other styling as needed */
+
   </style>
   <head>
-      <title>QRnao</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" type="text/css" href="./style.css"> -->
+    <title>QRnao</title>
   </head>
-  <h1>
-    QRnao
-  </h1>
-  <div class="Form">
-    <form method="POST" action="/qrcode"><br>
-        <label for="text">Text:</label>
-        <input type="text" id="text" name="text" placeholder="Enter text or link."><br>
-        <label for="error_correction">Error Correction:</label>
-        <select id="error_correction" name="error_correction">
-            <option value="H">High</option>
-            <option value="Q">Quartile</option>
-            <option value="M">Medium</option>
-            <option value="L" selected>Low</option>
-        </select><br>
-        <label for="box_size">Box Size:</label>
-        <input type="number" id="box_size" name="box_size" value="10" class="no-arrows"><br>
-        <label for="border">Border:</label>
-        <input type="number" id="border" name="border" value="4" class="no-arrows"><br>
-        <label for="background_color">Background Color:</label>
-        <input type="color" id="background_color" name="background_color"><br>
-        <label for="foreground_color">QR code Color:</label>
-        <input type="color" id="foreground_color" name="foreground_color"><br>
-        <button type="submit">Generate</button>
-    </form>
-  </div>
-  <div class="QRcode">
-    <img src="QRcode.png" alt="QR code">
-  </div>
+  <body>
+    <h1>QRnao</h1>
+    <div class="container">
+      <div class="Form">
+        <form method="POST" action="/qrcode"><br>
+            <label for="text">Text:</label>
+            <input type="text" id="text" name="text" placeholder="Enter text or link."><br>
+            <label for="error_correction">Error Correction:</label>
+            <select id="error_correction" name="error_correction">
+                <option value="H">High</option>
+                <option value="Q">Quartile</option>
+                <option value="M">Medium</option>
+                <option value="L" selected>Low</option>
+            </select><br>
+            <label for="box_size">Box Size:</label>
+            <input type="number" id="box_size" name="box_size" value="10" class="no-arrows"><br>
+            <label for="border">Border:</label>
+            <input type="number" id="border" name="border" value="4" class="no-arrows"><br>
+            <label for="background_color">Background Color:</label>
+            <input type="color" id="background_color" name="background_color" value="#ffffff"><br>
+            <label for="foreground_color">QR code Color:</label>
+            <input type="color" id="foreground_color" name="foreground_color" value="#000000"><br>
+            <button type="submit">Generate</button>
+        </form>
+      </div>
+      <div class="QRcode"><br>
+        <img src="{{ img_data_uri }}" alt="Preview:">
+      </div>
+    </div>
+    </body>
 </html>

@@ -1,11 +1,16 @@
-from fastapi import FastAPI, Request, Form
-from fastapi.responses import HTMLResponse, FileResponse
+from fastapi import FastAPI, Form, Request
+from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
 from qrcode import constants, QRCode
-import tempfile
+from tempfile import NamedTemporaryFile
 
+
+# Create the FastAPI app
 app = FastAPI()
+
+# Set the Jinja2 templates directory
 templates = Jinja2Templates(directory="templates")
+
 
 def colorHEX2RGB(hex_color: str) -> tuple:
     """
@@ -14,9 +19,11 @@ def colorHEX2RGB(hex_color: str) -> tuple:
     hex_color = hex_color.lstrip('#')
     return tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
 
+
 @app.get("/")
 async def root(request: Request) -> HTMLResponse:
-    return templates.TemplateResponse("form2.html", {"request": request}) # type: ignore
+    """Serves the home page."""
+    return templates.TemplateResponse("form3.html", {"request": request}) # type: ignore
 
 @app.post("/qrcode")
 async def qrcode(
@@ -26,8 +33,9 @@ async def qrcode(
     border: int = Form(4),
     background_color: str = Form("#ffffff"),
     foreground_color: str = Form("#000000"),
-    request: Request
 ):
+    """Generates a QR code based on the form data."""
+    
     # Convert error_correction to the appropriate constant
     error_correction_mapping = {
         "H": constants.ERROR_CORRECT_H,
@@ -35,8 +43,10 @@ async def qrcode(
         "M": constants.ERROR_CORRECT_M,
         "L": constants.ERROR_CORRECT_L,
     }
+    # Set the error correction constant
     error_correction_constant = error_correction_mapping.get(error_correction, constants.ERROR_CORRECT_H)
 
+    # Generate QR codeq
     qr = QRCode(
         version = None,
         error_correction = error_correction_constant,
@@ -47,13 +57,12 @@ async def qrcode(
     qr.make(fit=True)
     fill = colorHEX2RGB(foreground_color)
     back_color = colorHEX2RGB(background_color)
-    print(f"FG: {foreground_color}, BG: {background_color}")
-    print(f"FG: {fill}, BG: {back_color}")
     img = qr.make_image(fill = fill, back_color = back_color)
 
-    # with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as temp_file:
-    #     img.save(temp_file)
+    # Save the QR code to a temporary file
+    with NamedTemporaryFile(suffix=".png", delete=False) as temp_file:
+        img.save(temp_file.name)
+        tempqr = temp_file.name
 
-    QRpng = img.save("QRpng.png")
-
-    return templates.TemplateResponse("form3.html", {"request": request}) # type: ignore
+    # Return the QR code image as a downloadable file    
+    return FileResponse(tempqr, headers={"Content-Disposition": "attachment; filename=QRcode.png"})

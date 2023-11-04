@@ -1,0 +1,57 @@
+/* style.css */
+h1{
+  text-align: left;
+  font-size: xx-large;
+  font-family: cursive;
+  padding-left: 20%
+}
+.no-arrows{
+  -moz-appearance: textfield;
+}
+.Form {
+  float: left;
+}
+.QRcode {
+  float: right;
+}
+div {
+  text-align: left;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding-left: 20%;
+  padding-block-end: 1%;
+  padding-right: 70%;
+}
+input[type=text] {
+  width: 105%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+select[id="error_correction"]{
+  width: 105%;
+  text-align: center;
+}
+input[type=number] {
+  width: 100%;
+  text-align: center;
+}
+input[type=color]{
+  width: 105%;
+}
+button[type=submit] {
+  width: 100%;
+  background-color: rgb(218, 205, 218);
+  color: rgb(0, 0, 0);
+  padding: 14px 20px;
+  margin: 40px 0;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+}
+input[type=submit]:hover {
+  background-color: rgb(235, 230, 235);
+}
